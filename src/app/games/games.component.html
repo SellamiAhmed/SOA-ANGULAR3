@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="card shadow mb-4">
+    <div class="card-body">
+    <table class="table table-striped">
+    <thead>
+    <tr> <th>Id</th><th>Nom</th> <th>Rating</th> <th>Release Date</th><th>Studio</th><th>Actions</th> </tr>
+</thead>
+<tbody *ngFor="let game of games">
+    <tr >
+    <td>{{game.idGame}}</td>
+    <td>{{game.nomGame}}</td>
+    <td>{{game.rating}}</td>
+    <td>{{game.releaseDate | date:'dd/MM/yyyy'}}</td>
+    <td>{{game.studio.nomStudio}}</td>
+<!-- hatit ? aal studio bech ki yabda null me ytalaalich erreur -->    
+ <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerGame(game)">Supprimer</a></td>
+<td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateGame',game.idGame]">Modifier</a></td>
+    </tr>
+</tbody>
+    </table>
+    </div>
+    </div>
+    </div>
