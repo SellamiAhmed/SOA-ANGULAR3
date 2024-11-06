@@ -47,10 +47,10 @@
         {{ authService.loggedUser }}
       </a>
       <div class="dropdown-menu">
-        <a *ngIf="!authService.isloggedIn" class="dropdown-item" href="#"
+        <a *ngIf="!authService.isLogged" class="dropdown-item" href="#"
           >login</a
         >
-        <a *ngIf="authService.isloggedIn" class="dropdown-item" href="#"
+        <a *ngIf="authService.isLogged" class="dropdown-item" href="#"
           (click)="authService.logout()"
           >logout</a
         >

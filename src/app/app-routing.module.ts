@@ -9,38 +9,36 @@ import { ListeStudiosComponent } from './liste-studios/liste-studios.component';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { GameGuard } from './game.guard';
-import { AuthGuard } from './game.guard'; // Import AuthGuard
+import { RegisterComponent } from './register/register.component';
+import { VerifEmailComponent } from './verif-email/verif-email.component';
 
 const routes: Routes = [
+  {path:'register',component:RegisterComponent},
+  { path: 'verifEmail', component: VerifEmailComponent },
   {
     path: 'games',
     component: GamesComponent,
-    canActivate: [AuthGuard], // Protect this route with AuthGuard
   },
   {
     path: 'add-game',
     component: AddGameComponent,
-    canActivate: [AuthGuard, GameGuard], // Protect this route with AuthGuard and GameGuard
+    canActivate: [ GameGuard], // Protect this route with AuthGuard and GameGuard
   },
   {
     path: 'updateGame/:id',
     component: UpdateGameComponent,
-    canActivate: [AuthGuard], // Protect this route with AuthGuard
   },
   {
     path: 'rechercheParStudio',
     component: RechercheParStudioComponent,
-    canActivate: [AuthGuard], // Protect this route with AuthGuard
   },
   {
     path: 'rechercheParNom',
     component: RechercheParNomComponent,
-    canActivate: [AuthGuard], // Protect this route with AuthGuard
   },
   {
     path: 'listeStudios',
     component: ListeStudiosComponent,
-    canActivate: [AuthGuard], // Protect this route with AuthGuard
   },
   {
     path: 'login',
@@ -55,15 +53,17 @@ const routes: Routes = [
     redirectTo: 'games',
     pathMatch: 'full',
   },
-  {
-    path: '**',
-    redirectTo: 'games',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'games',
+  // },
+
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [GameGuard, AuthGuard], // Provide AuthGuard
+  providers: [GameGuard], // Provide AuthGuard
 })
 export class AppRoutingModule {}

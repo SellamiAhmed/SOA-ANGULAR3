@@ -8,14 +8,37 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
   users: User[] = [
-    { username: 'admin', password: '123', roles: ['ADMIN'] },
-    { username: 'nour', password: '123', roles: ['USER'] },
+    {
+      username: 'admin',
+      password: '123',
+      roles: ['ADMIN'],
+      email: 'bechir@ieee.org',
+      enabled: true,
+    },
+    {
+      username: 'bechir',
+      password: '123',
+      roles: ['USER'],
+      email: 'hbechir52@gmail.com',
+      enabled: true,
+    },
   ];
   public loggedUser!: string;
   public isloggedIn: Boolean = false;
   public roles!: string[];
 
   private helper = new JwtHelperService();
+  public regitredUser: User = new User();
+
+  setRegistredUser(user: User) {
+    this.regitredUser = user;
+  }
+  getRegistredUser() {
+    return this.regitredUser;
+  }
+  validateEmail(code: string) {
+    return this.http.get<User>(this.apiURL + '/verifyEmail/' + code);
+  }
 
   //helper to decode jwt token
 
@@ -33,6 +56,11 @@ export class AuthService {
   }
   isTokenExpired(): Boolean {
     return this.helper.isTokenExpired(this.token);
+  }
+  registerUser(user: User) {
+    return this.http.post<User>(this.apiURL + '/register', user, {
+      observe: 'response',
+    });
   }
 
   logout() {
