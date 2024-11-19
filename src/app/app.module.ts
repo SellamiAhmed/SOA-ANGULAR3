@@ -25,6 +25,8 @@ import { GameGuard } from './game.guard';
 import { TokenInterceptor } from './services/token.interceptor';
 import { RegisterComponent } from './register/register.component';
 import { VerifEmailComponent } from './verif-email/verif-email.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,7 @@ import { VerifEmailComponent } from './verif-email/verif-email.component';
     RegisterComponent,
     VerifEmailComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule,ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule,BrowserAnimationsModule,ToastrModule.forRoot()],
   providers: [
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi()),

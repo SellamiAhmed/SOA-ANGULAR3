@@ -13,7 +13,9 @@ import { RegisterComponent } from './register/register.component';
 import { VerifEmailComponent } from './verif-email/verif-email.component';
 
 const routes: Routes = [
-  {path:'register',component:RegisterComponent},
+  { 
+    path: 'register', component: RegisterComponent },
+
   { path: 'verifEmail', component: VerifEmailComponent },
   {
     path: 'games',
@@ -22,7 +24,9 @@ const routes: Routes = [
   {
     path: 'add-game',
     component: AddGameComponent,
-    canActivate: [ GameGuard], // Protect this route with AuthGuard and GameGuard
+    canActivate: [
+      GameGuard,
+    ], 
   },
   {
     path: 'updateGame/:id',
@@ -57,8 +61,6 @@ const routes: Routes = [
   //   path: '**',
   //   redirectTo: 'games',
   // },
-
-
 ];
 
 @NgModule({

@@ -22,7 +22,6 @@ export class VerifEmailComponent implements OnInit {
   onValidateEmail() {
     this.authService.validateEmail(this.code).subscribe({
       next: (res) => {
-        alert('Login successful');
         this.authService.login(this.user).subscribe({
           next: (data) => {
             let jwToken = data.headers.get('Authorization')!;

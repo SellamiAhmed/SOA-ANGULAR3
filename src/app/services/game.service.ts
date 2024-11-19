@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Game } from '../model/game.model';
+import { Image } from '../model/image.model';
 import { Studio } from '../model/studio.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -75,5 +76,36 @@ export class GameService {
     return this.http.post<Studio>(this.apiURLStudio, studio, {
       headers: this.getAuthHeaders(),
     });
+  }
+
+  // images ---------
+
+  uploadImage(file: File, filename: string): Observable<Image> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${this.apiUrl + '/image/upload'}`;
+    return this.http.post<Image>(url, imageFormData);
+  }
+
+  loadImage(id: number): Observable<Image> {
+    const url = `${this.apiUrl + '/image/get/info'}/${id}`;
+    return this.http.get<Image>(url);
+  }
+
+  // images methode 2
+
+  uploadImageProd(
+    file: File,
+    filename: string,
+    idProd: number
+  ): Observable<any> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${this.apiUrl + '/image/uplaodImageProd'}/${idProd}`;
+    return this.http.post(url, imageFormData);
+  }
+  supprimerImage(id: number) {
+    const url = `${this.apiUrl}/image/delete/${id}`;
+    return this.http.delete(url, httpOptions);
   }
 }

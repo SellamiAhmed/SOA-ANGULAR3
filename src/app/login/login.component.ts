@@ -11,10 +11,10 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   user = new User();
+  message: string = 'login ou mot de passe erronés..';
 
   erreur = 0;
-  err:number = 0;
-
+  err: number = 0;
 
   onLoggedin() {
     this.authService.login(this.user).subscribe({
@@ -23,8 +23,11 @@ export class LoginComponent {
         this.authService.saveToken(jwToken);
         this.router.navigate(['/']);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.err = 1;
+        if (err.error.errorCause == 'disabled')
+          this.message =
+            'Utilisateur désactivé, Veuillez contacter votre Administrateur';
       },
     });
   }

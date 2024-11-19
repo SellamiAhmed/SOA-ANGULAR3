@@ -1,43 +1,86 @@
 <div class="container">
-    <div>
+  <div>
     <h2>Ajouter une Game :</h2>
+  </div>
+  <form>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>ID Game</label>
+      <input
+        type="text"
+        [(ngModel)]="newGame.idGame"
+        name="idGame"
+        class="form-control"
+      />
     </div>
-    <form >
-        <div class="col-sm-2 col-md-2 col-lg-2">
-        <label >ID Game</label>
-        <input type="text" [(ngModel)]="newGame.idGame"
-        name="idGame" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4" >
-        <label >Nom Game</label>
-        <input type="text" [(ngModel)]="newGame.nomGame"
-        name="nomGame" class="form-control">
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-        <label >Rating</label>
-        <input type="text" [(ngModel)]="newGame.rating"
-        name="rating" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-        <label >Release Date</label>
-        <input type="date" [(ngModel)]="newGame.releaseDate"
-        name="releaseDate" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label>Studio</label>
-            <select class="form-control form-control-lg" id="idStudio" name="idStudio" [(ngModel)]="newIdStudio">
-             <option *ngFor="let studio of studios" [value]="studio.idStudio" >
-             {{studio.nomStudio}}
-            </option>
-            </select>
-            </div>
-        <div class="mt-2">
-        <button type="submit" (click)="addGame()" class="btn btn-success">Ajouter</button>
-        <div>
-            <h3>
-                {{message}}
-            </h3>
-        </div>
-        </div>
-        </form>
-        </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Nom Game</label>
+      <input
+        type="text"
+        [(ngModel)]="newGame.nomGame"
+        name="nomGame"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Rating</label>
+      <input
+        type="text"
+        [(ngModel)]="newGame.rating"
+        name="rating"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Release Date</label>
+      <input
+        type="date"
+        [(ngModel)]="newGame.releaseDate"
+        name="releaseDate"
+        class="form-control"
+      />
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Studio</label>
+      <select
+        class="form-control form-control-lg"
+        id="idStudio"
+        name="idStudio"
+        [(ngModel)]="newIdStudio"
+      >
+        <option *ngFor="let studio of studios" [value]="studio.idStudio">
+          {{ studio.nomStudio }}
+        </option>
+      </select>
+    </div>
+    <div class="mt-2">
+      <div class="col-sm-16 col-md-16 col-lg-16">
+        <label class="mb-2">Image :</label>
+        <input
+          type="file"
+          (change)="onImageUpload($event)"
+          name="logo"
+          class="form-control"
+        />
+      </div>
+      <div class="col-sm-16 col-md-16 col-lg-16">
+        <img
+            *ngIf="imagePath"
+          [src]="imagePath"
+          class="card-img-top img-fluid rounded-start"
+          style="width: 500px; height: 300px"
+        />
+        <p
+        *ngIf="!imagePath"
+        >no image selected</p>
+      </div>
+      <button type="submit" (click)="addGame()" class="btn btn-success">
+        Ajouter
+      </button>
+      <div>
+        <h3>
+          {{ message }}
+        </h3>
+      </div>
+    </div>
+  </form>
+</div>
