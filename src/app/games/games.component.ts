@@ -20,18 +20,36 @@ export class GamesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('hhhhh');
+    console.log('games');
     this.chargerGames();
   }
   chargerGames() {
-    this.gameService.listeGame().subscribe((games) => {
-      this.games = games;
-      console.log("games",this.games);
-      this.games.forEach((game) => {
-        console.log("game",game);
-        game.imageStr =
-          'data:' + game?.images[0]?.type + ';base64,' + game?.images[0]?.image;
-      });
+    this.gameService.listeGame().subscribe({
+      next: (games) => {
+        this.games = games;
+        console.log('games before processing:', this.games);
+
+        this.games.forEach((game) => {
+          // Add null checks and validation
+          if (
+            game.images &&
+            Array.isArray(game.images) &&
+            game.images.length > 0 &&
+            game.images[0]?.type &&
+            game.images[0]?.image
+          ) {
+            game.imageStr =
+              'data:' + game.images[0].type + ';base64,' + game.images[0].image;
+          } else {
+            // Set a default image or handle the case when no image is available
+            game.imageStr = ''; // Or handle as needed
+            console.log('No valid image found for game:', game);
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error loading games:', error);
+      },
     });
   }
 

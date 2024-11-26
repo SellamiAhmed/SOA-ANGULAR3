@@ -11,5 +11,4 @@ export class Game {
   imageStr!: string;
 
   images!: Image[];
-
 }

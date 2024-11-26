@@ -7,7 +7,7 @@
       <a class="nav-link" routerLink="/games">Home</a>
     </li>
     <!-- Dropdown -->
-    <li class="nav-item dropdown">
+    <li *ngIf="authService.isLogged" class="nav-item dropdown">
       <a
         class="nav-link dropdown-toggle"
         href="#"

@@ -12,14 +12,14 @@ export class AuthService {
       username: 'admin',
       password: '123',
       roles: ['ADMIN'],
-      email: 'bechir@ieee.org',
+      email: 'ahmed@ieee.org',
       enabled: true,
     },
     {
-      username: 'bechir',
+      username: 'ahmed',
       password: '123',
       roles: ['USER'],
-      email: 'hbechir52@gmail.com',
+      email: 'ahmeds54@gmail.com',
       enabled: true,
     },
   ];
@@ -45,8 +45,9 @@ export class AuthService {
   setLoggedUserFromLocalStorage(login: string) {
     this.loggedUser = login;
     this.isloggedIn = true;
-    this.getUserRoles(login);
+   //this.getUserRoles(login);
   }
+  /*
   getUserRoles(username: string) {
     this.users.forEach((curUser) => {
       if (curUser.username == username) {
@@ -54,6 +55,7 @@ export class AuthService {
       }
     });
   }
+  */
   isTokenExpired(): Boolean {
     return this.helper.isTokenExpired(this.token);
   }

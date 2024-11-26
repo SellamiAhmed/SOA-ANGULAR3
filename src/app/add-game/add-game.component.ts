@@ -22,15 +22,27 @@ export class AddGameComponent {
   constructor(private gameService: GameService, private router: Router) {}
 
   ngOnInit(): void {
-    this.gameService.listeStudios().subscribe((studios) => {
-      if (Array.isArray(studios)) {
-        this.studios = studios;
-      } else {
-        console.error(
-          'Studios is undefined or does not contain "studios" property'
-        );
+    this.loadStudio();
+  }
+
+  loadStudio() {
+    this.gameService.listeStudios().subscribe(
+      (response: any) => {
+        console.log('data studio', response);
+        if (response && response._embedded && response._embedded.studios) {
+          this.studios = response._embedded.studios;
+        } else if (Array.isArray(response)) {
+          this.studios = response;
+        } else {
+          console.error('Unexpected response format:', response);
+          this.studios = [];
+        }
+      },
+      (error) => {
+        console.error('Error loading studios:', error);
+        this.studios = [];
       }
-    });
+    );
   }
   addGame() {
     this.newGame.studio = this.studios.find(
@@ -39,11 +51,7 @@ export class AddGameComponent {
 
     this.gameService.ajouterGame(this.newGame).subscribe((e) => {
       this.gameService
-        .uploadImageProd(
-          this.uploadedImage,
-          this.uploadedImage.name,
-          e.idGame
-        )
+        .uploadImageProd(this.uploadedImage, this.uploadedImage.name, e.idGame)
         .subscribe((img: Image) => {});
       this.router.navigate(['games']);
     });
